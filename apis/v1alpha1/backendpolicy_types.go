@@ -63,6 +63,13 @@ type BackendPolicySpec struct {
 	// +kubebuilder:validation:MaxItems=16
 	BackendRefs []BackendRef `json:"backendRefs"`
 
+	// HealthCheck is the HealthCheck configuration for these backends.
+	//
+	// Support: Extended
+	//
+	// +optional
+	HealthCheck *BackendHealthCheckConfig `json:"healthCheck,omitempty"`
+
 	// TLS is the TLS configuration for these backends.
 	//
 	// Support: Extended
@@ -125,6 +132,67 @@ type BackendTLSConfig struct {
 	//
 	// +optional
 	Options map[string]string `json:"options,omitempty"`
+}
+
+// BackendHealthCheckConfig describes Health Check configuration for a backend.
+type BackendHealthCheckConfig struct {
+	// Protocol is the protocol to use for health checks. When unspecified, the
+	// protocol corresponding with the referenced backend Port is used.
+	//
+	// Support: Extended
+	//
+	// +optional
+	Protocol *string `json:"protocol,omitempty"`
+
+	// Path is the HTTP request path to use for health checks.
+	//
+	// Support: Extended
+	//
+	// +optional
+	Path *string `json:"path,omitempty"`
+
+	// Hostname is the hostname to use for health checks.
+	//
+	// Support: Extended
+	//
+	// +optional
+	Hostname *string `json:"hostname,omitempty"`
+
+	// IntervalSeconds defines the interval at which health checks should be
+	// performed.
+	//
+	// Support: Extended
+	//
+	// +optional
+	// +kubebuilder:default=5
+	IntervalSeconds *int32 `json:"intervalSeconds,omitempty"`
+
+	// TimeoutSeconds defines the timeout after which health check should be
+	// considered unsuccessful.
+	//
+	// Support: Extended
+	//
+	// +optional
+	// +kubebuilder:default=5
+	TimeoutSeconds *int32 `json:"timeoutSeconds,omitempty"`
+
+	// HealthyThreshold defines the number of consecutive successful health
+	// checks required before an endpoint should be considered unhealthy.
+	//
+	// Support: Extended
+	//
+	// +optional
+	// +kubebuilder:default=1
+	HealthyThreshold *int32 `json:"healthyThreshold,omitempty"`
+
+	// UnhealthyThreshold defines the number of consecutive failed health checks
+	// required before an endpoint should be considered unhealthy.
+	//
+	// Support: Extended
+	//
+	// +optional
+	// +kubebuilder:default=1
+	UnhealthyThreshold *int32 `json:"unhealthyThreshold,omitempty"`
 }
 
 // BackendPolicyStatus defines the observed state of BackendPolicy. Conditions

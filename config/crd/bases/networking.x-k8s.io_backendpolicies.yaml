@@ -84,6 +84,50 @@ spec:
                   type: object
                 maxItems: 16
                 type: array
+              healthCheck:
+                description: "HealthCheck is the HealthCheck configuration for these
+                  backends. \n Support: Extended"
+                properties:
+                  healthyThreshold:
+                    default: 1
+                    description: "HealthyThreshold defines the number of consecutive
+                      successful health checks required before an endpoint should
+                      be considered unhealthy. \n Support: Extended"
+                    format: int32
+                    type: integer
+                  hostname:
+                    description: "Hostname is the hostname to use for health checks.
+                      \n Support: Extended"
+                    type: string
+                  intervalSeconds:
+                    default: 5
+                    description: "IntervalSeconds defines the interval at which health
+                      checks should be performed. \n Support: Extended"
+                    format: int32
+                    type: integer
+                  path:
+                    description: "Path is the HTTP request path to use for health
+                      checks. \n Support: Extended"
+                    type: string
+                  protocol:
+                    description: "Protocol is the protocol to use for health checks.
+                      When unspecified, the protocol corresponding with the referenced
+                      backend Port is used. \n Support: Extended"
+                    type: string
+                  timeoutSeconds:
+                    default: 5
+                    description: "TimeoutSeconds defines the timeout after which health
+                      check should be considered unsuccessful. \n Support: Extended"
+                    format: int32
+                    type: integer
+                  unhealthyThreshold:
+                    default: 1
+                    description: "UnhealthyThreshold defines the number of consecutive
+                      failed health checks required before an endpoint should be considered
+                      unhealthy. \n Support: Extended"
+                    format: int32
+                    type: integer
+                type: object
               tls:
                 description: "TLS is the TLS configuration for these backends. \n
                   Support: Extended"
