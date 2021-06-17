@@ -33,8 +33,8 @@ type Scenario struct {
 }
 
 // New creates a new state to use in a test Scenario
-func New() *Scenario {
-	return &Scenario{}
+func New(namespace string) *Scenario {
+	return &Scenario{Namespace: namespace}
 }
 
 // CaptureRoundTrip will perform an HTTP request and return the CapturedRequest
